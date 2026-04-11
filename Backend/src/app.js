@@ -6,6 +6,8 @@ import authRoutes from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import morgan from "morgan"
 
+
+
 const app = express();
 
 // Middleware

@@ -5,7 +5,7 @@ import Home from "../features/auth/pages/Home";
 import Desktop from "../features/chat/pages/Desktop";
 import Protected from "../features/components/Protected";
 import PublicRoute from "../features/components/PublicRoute";
-
+import { Navigate } from "react-router-dom";
 
 export const router = createBrowserRouter([
     {
@@ -19,5 +19,8 @@ export const router = createBrowserRouter([
     {
         path:"/",
         element:<Protected><Desktop/></Protected>
+    },{
+        path:"*",
+        element:<Navigate to={'/'}/>
     }
 ])
