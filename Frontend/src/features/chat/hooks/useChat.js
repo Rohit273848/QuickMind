@@ -8,10 +8,40 @@ import {
 } from "../chat.slice";
 import { useDispatch } from "react-redux";
 import { store } from "../../../app/app.store"; 
+import { getSocket } from "../services/chat.socket";
 
 
 export const useChat = () => {
   const dispatch = useDispatch();
+
+  function listenForMessages() {
+    const socket = getSocket();
+  
+    if (!socket) return;
+  
+    socket.on("new-message", ({ title, chat, aiMessage }) => {
+      console.log("Socket message received:", aiMessage);
+  
+      const chats = store.getState().chat.chats;
+  
+      const updatedChats = {
+        ...chats,
+        [chat._id]: {
+          ...chats[chat._id],
+          ...chat,
+          title: title || chats[chat._id]?.title,
+          messages: [
+            ...(chats[chat._id]?.messages || []),
+            aiMessage,
+          ],
+        },
+      };
+  
+      dispatch(setChats(updatedChats));
+      dispatch(setCurrentChatId(chat._id));
+    });
+  }
+
 
 async function handleGetMessages(chatId) {
   try {
@@ -113,5 +143,6 @@ async function handleGetMessages(chatId) {
     handleSendMessage,
     handleGetChats,
     handleGetMessages,
+    listenForMessages,
   };
 };

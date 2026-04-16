@@ -11,6 +11,7 @@ export default function InputBox() {
   );
 
 
+  
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
@@ -29,7 +30,7 @@ export default function InputBox() {
 
         {/* Plus Button */}
         <button className="p-2 text-[#C8AAAA] hover:text-[#FFDAB3] transition text-lg">
-          +
+          
         </button>
 
         {/* Input */}
@@ -42,7 +43,7 @@ export default function InputBox() {
             }
           }}
           type="text"
-          placeholder="Message AI Chat..."
+          placeholder="Ask anything"
           className="flex-1 bg-transparent outline-none px-2 text-sm text-[#FFDAB3] placeholder:text-[#C8AAAA]"
         />
 
