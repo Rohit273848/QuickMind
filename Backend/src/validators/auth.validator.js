@@ -27,3 +27,13 @@ export const registerValidation = [
     .matches(/[0-9]/)
     .withMessage("Password must contain at least one number"),
 ];
+
+export const loginValidation = [
+  body("email")
+    .notEmpty().withMessage("Email is required")
+    .isEmail().withMessage("Invalid email format")
+    .normalizeEmail(),
+
+  body("password")
+    .notEmpty().withMessage("Password is required"),
+];

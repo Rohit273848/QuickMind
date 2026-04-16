@@ -1,5 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
 
 import nodemailer from "nodemailer";
 
@@ -21,18 +19,22 @@ transporter
     console.log("Email transporter is ready to send emails");
   })
   .catch((err) => {
-    console.error("Email transporter verification failed:", err);
+    console.error("❌Email transporter verification failed:", err);
   });
 
-export async function sendEmail({ to, subject, html, text }) {
+export async function sendEmail({ to, subject, html, text="" }) {
   const mailOptions = {
     from: process.env.GOOGLE_USER,
     to,
     subject,
     html,
-    text,
+    text: text || "Please check your email",
   };
 
-  const details = await transporter.sendMail(mailOptions);
-  console.log("Email sent:", details);
+  try {
+    const details = await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error("Email send failed:", error);
+  }
+  console.log("Email sented:", to);
 }

@@ -1,21 +1,35 @@
 import jwt from "jsonwebtoken";
 
 export const authUser = (req, res, next) => {
-    const token = req.cookies.token;
+  try {
+    const token = req.cookies?.token;
 
     if (!token) {
-        return res.status(401).json({
-            message: "Authentication required",
-        });
+      return res.status(401).json({
+        success: false,
+        message: "Authentication required",
+      });
     }
 
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded; // Attach user info to request
-        next();
-    } catch (err) {
-        return res.status(401).json({
-            message: "Invalid token",
-        });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (!decoded) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid token",
+      });
     }
-}
+
+    req.user = decoded;
+    next();
+
+  } catch (error) {
+    if (error.name === "TokenExpiredError") {
+        return res.status(401).json({ message: "Token expired" });
+      }
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized access",
+    });
+  }
+};
