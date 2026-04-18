@@ -10,7 +10,12 @@ const tvly = tavily({ apiKey: process.env.TAVITY_API});
 
 export const web_search = tool(
     async ({query})=>{
-        const response = await tvly.search(query);
+        const response = await tvly.search(query, {
+            maxResults: 5,
+            searchDepth: "advanced",
+        });
+        console.log(response);
+        
        return JSON.stringify(response.results)
     },{
         name:"web_search",

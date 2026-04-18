@@ -33,9 +33,8 @@ export const login = async ({ email, password }) => {
   // LOGOUT
   export const logout = async () => {
     try {
-      dispatch(setUser(null))
-      // const response = await api.post("/logout");
-      // return response.data;
+      const response = await api.post("/logout");
+      return response.data;
     } catch (error) {
       console.error("Logout Error:", error.response?.data || error.message);
       throw error.response?.data || error.message;

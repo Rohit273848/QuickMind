@@ -22,7 +22,7 @@ export const register = async (req, res) => {
       });
     }
 
-   
+
 
     // 🆕 Create user
     const user = await User.create({
@@ -31,13 +31,17 @@ export const register = async (req, res) => {
       password,
     });
 
-   
-    const token = jwt.sign({
-      id:user._id,
-      email,
-    }, process.env.JWT_SECRET, )
 
-    res.cookie("token", token) 
+    const token = jwt.sign({
+      id: user._id,
+      email,
+    }, process.env.JWT_SECRET,)
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    })
 
     console.log("User created:", user);
 
@@ -165,11 +169,15 @@ export const login = async (req, res) => {
     }
 
     const token = jwt.sign({
-      id:user._id,
+      id: user._id,
       email: user.email,
     }, process.env.JWT_SECRET,)
 
-    res.cookie("token", token)
+    res.cookie("token", token,{
+      httpOnly: true,
+  secure: true,
+  sameSite: "None",
+    })
 
 
 
@@ -192,7 +200,13 @@ export const login = async (req, res) => {
   }
 }
 
+export const logout = (req, res) => {
+  res.clearCookie("token"); // or whatever cookie name you use
 
+  res.status(200).json({
+    message: "Logged out successfully",
+  });
+};
 
 
 export const varifyEmail = async (req, res) => {

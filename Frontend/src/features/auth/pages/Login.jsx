@@ -29,7 +29,7 @@ export const Login = () => {
   };
 
   return (
-<div className="min-h-screen flex items-center justify-center  from-slate-900 via-purple-900 to-slate-900 px-4">      <div className="w-full max-w-md">
+<div className="min-h-screen flex items-center justify-center  bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 px-4">      <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8"> 
           <h1 className="text-4xl font-bold text-white mb-2">Welcome Back</h1>
