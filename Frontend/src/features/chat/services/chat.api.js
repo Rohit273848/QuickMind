@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api/chats", // ✅ fixed
+  baseURL: "https://quickmind.onrender.com/api/chats", // ✅ fixed
   withCredentials: true,
 });
 
