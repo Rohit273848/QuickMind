@@ -3,9 +3,15 @@ import { Server } from "socket.io";
 let io;
 
 export function initSocket(httpServer) {
+
+  const allowedOrigins = [
+    "http://localhost:5173",
+    "https://quick-mind-rohit.vercel.app"
+  ];
+   
   io = new Server(httpServer, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: allowedOrigins,
       credentials: true,
     },
   });

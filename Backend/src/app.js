@@ -9,9 +9,14 @@ import chatRoutes from './routes/chat.routes.js';
 const app = express();
 
 try {
+  const allowedOrigins = [
+    "http://localhost:5173",
+    "https://quick-mind-rohit.vercel.app"
+  ];
+
   // Middleware
   app.use(cors({
-    origin:"https://quick-mind-rohit.vercel.app",
+    origin:allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   }));
