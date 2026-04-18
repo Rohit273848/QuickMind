@@ -11,7 +11,7 @@ const app = express();
 try {
   // Middleware
   app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin:"https://quick-mind-rohit.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   }));
